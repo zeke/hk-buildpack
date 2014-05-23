@@ -13,10 +13,11 @@ bp_dir=$(cd $(dirname $0); cd ..; pwd)
 # Load some convenience functions like status(), echo(), and indent()
 source $bp_dir/bin/common.sh
 
-status "Downloading hk from hk.heroku.com"
-L=$build_dir/hk && curl -sL -A "`uname -sp`" https://hk.heroku.com/hk.gz | zcat >$L && chmod +x $L
+mkdir -p $build_dir/vendor
 
+status "Downloading hk from hk.heroku.com"
+L=$build_dir/vendor/hk && curl -sL -A "`uname -sp`" https://hk.heroku.com/hk.gz | zcat >$L && chmod +x $L
 
 status "Adding hk to PATH"
 mkdir -p $build_dir/.profile.d
-echo "export PATH=\"\$HOME:\$PATH\"" > $build_dir/.profile.d/hk.sh
+echo "export PATH=\"\$HOME/vendor:\$PATH\"" > $build_dir/.profile.d/hk.sh
